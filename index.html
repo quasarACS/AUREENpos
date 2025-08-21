@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Factura Rápida - Aureen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <div class="app-header">Aureen pos</div>
+        
+        <div id="factura-mode" class="tool-section">
+            <div class="factura-container">
+                <div class="factura-form">
+                    <input type="text" id="factura-cliente" placeholder="Nombre del Cliente" oninput="updateInvoice()">
+                    <input type="text" id="factura-cedula" placeholder="Cédula o RIF del Cliente" oninput="updateInvoice()">
+                    <input type="number" id="factura-tasa" placeholder="Tasa del día (Bs/$)" oninput="updateInvoice()">
+                    
+                    <div id="factura-items-container"></div>
+                    
+                    <button class="add-item-btn" onclick="addInvoiceItem()">+ Añadir Producto</button>
+                    <button id="clear-invoice-btn" class="clear-btn" onclick="clearInvoice()">Limpiar</button>
+                    <button id="save-invoice-btn" class="save-btn" onclick="saveInvoiceToFirebase()">Guardar Factura</button>
+                </div>
+                
+                <div class="factura-preview">
+                    <h3>Recibo de Venta</h3>
+                    <div class="factura-header">
+                        <div><strong>Fecha:</strong> <span id="factura-fecha"></span></div>
+                        <div><strong>Cliente:</strong> <span id="factura-preview-cliente">N/A</span></div>
+                        <div><strong>Cédula/RIF:</strong> <span id="factura-preview-cedula">N/A</span></div>
+                        <div><strong>Tasa:</strong> <span id="factura-preview-tasa">0.00</span> Bs/$</div>
+                    </div>
+                    <ul id="factura-preview-items"></ul>
+                    <div class="factura-totals">
+                        <div class="total-item"><span>Total de Productos:</span> <strong id="factura-preview-item-count">0</strong></div>
+                        <div class="total-item"><span>Total USD:</span> <strong id="factura-preview-total-usd">$0.00</strong></div>
+                        <div class="total-item"><span>Total Bs:</span> <strong id="factura-preview-total-bs">Bs 0.00</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="https://t.me/tu_bot_username" target="_blank">Hecho por Erick, todos los derechos, reservados</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
