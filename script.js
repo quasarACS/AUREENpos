@@ -65,14 +65,12 @@ window.onload = function() {
 
 // --- FUNCIÓN PARA GUARDAR EN FIREBASE (CON INICIALIZACIÓN INTELIGENTE) ---
 async function saveInvoiceToFirebase() {
-    // LA CLAVE ESTÁ AQUÍ: Inicializamos Firebase SOLO cuando se va a guardar.
+    // LA CLAVE ESTÁ AQUÍ:
     if (!firebase.apps.length) {
         try {
             firebase.initializeApp(firebaseConfig);
         } catch (e) {
-            console.error("Error al inicializar Firebase. Revisa tu objeto firebaseConfig.", e);
-            alert("Error de configuración de Firebase. La factura no se puede guardar.");
-            return;
+            // ...
         }
     }
     const db = firebase.firestore();
@@ -187,3 +185,4 @@ function clearInvoice() {
     renderInvoiceItems();
     updateInvoice();
 }
+
