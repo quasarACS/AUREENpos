@@ -1,13 +1,17 @@
 // --- INICIO: CONFIGURACIÓN DE FIREBASE ---
 const firebaseConfig = {
-  apiKey: "AIzaSy... (Tu API Key)",
-  authDomain: "tu-proyecto.firebaseapp.com",
-  projectId: "tu-proyecto",
-  storageBucket: "tu-proyecto.appspot.com",
-  messagingSenderId: "...",
-  appId: "..."
+  apiKey: "AIzaSyBI38TK3ISnHBSOaXfouYAhNf-yXgM7EIE",
+  authDomain: "aureenpos.firebaseapp.com",
+  projectId: "aureenpos",
+  storageBucket: "aureenpos.firebasestorage.app",
+  messagingSenderId: "960599055342",
+  appId: "1:960599055342:web:73f44f0892890e399b4cff",
+  measurementId: "G-Z59MRLMDSS"
 };
-// --- FIN: CONFIGURACIÓN DE FIREBASE ---
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 
 // --- ESTADO GLOBAL ---
@@ -179,4 +183,5 @@ function clearInvoice() {
     document.getElementById('factura-cedula').value = "";
     renderInvoiceItems();
     updateInvoice();
+
 }
