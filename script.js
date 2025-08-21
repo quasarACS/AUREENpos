@@ -1,4 +1,5 @@
 // --- INICIO: CONFIGURACIÓN DE FIREBASE ---
+// REEMPLAZA ESTO CON LA CONFIGURACIÓN REAL DE TU PROYECTO
 const firebaseConfig = {
   apiKey: "AIzaSyBI38TK3ISnHBSOaXfouYAhNf-yXgM7EIE",
   authDomain: "aureenpos.firebaseapp.com",
@@ -12,6 +13,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+// --- FIN: CONFIGURACIÓN DE FIREBASE ---
 
 
 // --- ESTADO GLOBAL ---
@@ -61,8 +63,9 @@ window.onload = function() {
     initializeFactura();
 };
 
-// --- FUNCIÓN PARA GUARDAR EN FIREBASE ---
+// --- FUNCIÓN PARA GUARDAR EN FIREBASE (CON INICIALIZACIÓN INTELIGENTE) ---
 async function saveInvoiceToFirebase() {
+    // LA CLAVE ESTÁ AQUÍ: Inicializamos Firebase SOLO cuando se va a guardar.
     if (!firebase.apps.length) {
         try {
             firebase.initializeApp(firebaseConfig);
@@ -74,6 +77,7 @@ async function saveInvoiceToFirebase() {
     }
     const db = firebase.firestore();
 
+    // El resto de la lógica de guardado
     const hayItemsValidos = state.factura.items.some(item => item.name && item.price);
     if (!state.factura.cliente || !hayItemsValidos) {
         alert("Por favor, añade un cliente y al menos un producto con precio antes de guardar.");
@@ -137,7 +141,7 @@ function renderInvoiceItems() {
         itemDiv.className = 'invoice-item';
         itemDiv.innerHTML = `
             <input type="text" class="item-name" placeholder="Producto ${index + 1}" value="${item.name}" oninput="updateItem(${index}, 'name', this.value)">
-            <input type="number" class="item-price" placeholder="Valor ($)" value="${item.price}" oninput="updateItem(${index}, 'price', this.value)">
+            <input type="number" class="item-price" placeholder="Precio ($)" value="${item.price}" oninput="updateItem(${index}, 'price', this.value)">
             <button class="delete-item-btn" onclick="removeInvoiceItem(${index})">-</button>
         `;
         container.appendChild(itemDiv);
@@ -171,7 +175,6 @@ function updateInvoice() {
     document.getElementById('factura-preview-total-usd').innerText = `$${totalUSD.toFixed(2)}`;
     document.getElementById('factura-preview-total-bs').innerText = `Bs ${totalBs.toFixed(2)}`;
 }
-// --- NUEVA FUNCIÓN PARA LIMPIAR ---
 function clearInvoice() {
     state.factura = {
         cliente: "",
@@ -183,5 +186,4 @@ function clearInvoice() {
     document.getElementById('factura-cedula').value = "";
     renderInvoiceItems();
     updateInvoice();
-
 }
