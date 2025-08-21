@@ -15,7 +15,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 // --- FIN: CONFIGURACIÓN DE FIREBASE ---
 
-
 // --- ESTADO GLOBAL ---
 let state = {
     factura: {
@@ -63,19 +62,19 @@ window.onload = function() {
     initializeFactura();
 };
 
-// --- FUNCIÓN PARA GUARDAR EN FIREBASE (CON INICIALIZACIÓN INTELIGENTE) ---
+// --- FUNCIÓN PARA GUARDAR EN FIREBASE ---
 async function saveInvoiceToFirebase() {
-    // LA CLAVE ESTÁ AQUÍ:
     if (!firebase.apps.length) {
         try {
             firebase.initializeApp(firebaseConfig);
         } catch (e) {
-            // ...
+            console.error("Error al inicializar Firebase. Revisa tu objeto firebaseConfig.", e);
+            alert("Error de configuración de Firebase. La factura no se puede guardar.");
+            return;
         }
     }
     const db = firebase.firestore();
 
-    // El resto de la lógica de guardado
     const hayItemsValidos = state.factura.items.some(item => item.name && item.price);
     if (!state.factura.cliente || !hayItemsValidos) {
         alert("Por favor, añade un cliente y al menos un producto con precio antes de guardar.");
@@ -185,4 +184,3 @@ function clearInvoice() {
     renderInvoiceItems();
     updateInvoice();
 }
-
