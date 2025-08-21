@@ -9,10 +9,6 @@ const firebaseConfig = {
   appId: "1:960599055342:web:73f44f0892890e399b4cff",
   measurementId: "G-Z59MRLMDSS"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 // --- FIN: CONFIGURACIÓN DE FIREBASE ---
 
 // --- ESTADO GLOBAL ---
@@ -184,3 +180,4 @@ function clearInvoice() {
     renderInvoiceItems();
     updateInvoice();
 }
+
